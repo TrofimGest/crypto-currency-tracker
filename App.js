@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import CoinCard from './src/components/CoinCard/CoinCard';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <CoinCard />
+      <CoinCard />
+      <CoinCard />
+      <StatusBar style='light' />
     </View>
   );
 }
@@ -13,8 +16,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#161618',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 50,
   },
 });
