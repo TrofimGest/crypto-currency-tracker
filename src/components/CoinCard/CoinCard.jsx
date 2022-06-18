@@ -6,13 +6,15 @@ const CoinCard = ({marketCoin}) => {
 
   const {
     name,
-    current_price,
+    current_price,  
     market_cap_rank,
     price_change_percentage_24h,
     symbol,
     market_cap,
     image,
   } = marketCoin;
+
+  const percentageColor = price_change_percentage_24h < 0 ? '#ea3943' : '#16c784' 
 
   const normalizeMCap = (marketCap) => {
     //Thrillion
@@ -51,12 +53,12 @@ const CoinCard = ({marketCoin}) => {
           </View>
           <Text style={styles.text}>{symbol.toUpperCase()}</Text>
           <AntDesign
-            name='caretdown'
+            name={price_change_percentage_24h < 0 ? 'caretdown' : 'caretup'}
             size={12}
-            color='white'
+            color={percentageColor}
             style={{ alignSelf: 'center', marginRight: 5 }}
           />
-          <Text style={{ color: 'white' }}>{price_change_percentage_24h.toFixed(2)}%</Text>
+          <Text style={{ color: percentageColor }}>{price_change_percentage_24h.toFixed(2)}%</Text>
         </View>
       </View>
       <View style={{ marginLeft: 'auto', alignItems: 'flex-end' }}>
