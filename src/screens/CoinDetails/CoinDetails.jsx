@@ -1,7 +1,8 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
-import { Ionicons, EvilIcons } from '@expo/vector-icons';
 import Coin from '../../../assets/data/crypto.json';
+import CoinHeader from '../../components/CoinHeader/CoinHeader';
+import Price from '../../components/Price/Price';
 
 const CoinDetails = () => {
   const {
@@ -17,18 +18,17 @@ const CoinDetails = () => {
   } = Coin;
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        alignItems: 'center',
-      }}
-    >
-      <Ionicons name='chevron-back-sharp' size={30} color='white' />
-      <Image source={{ uri: small }} style={{ width: 25, height: 25 }} />
-      <Text style={{ color: 'white' }}>{symbol.toUpperCase}</Text>
-      <Text style={{ color: 'white' }}>#{market_cap_rank}</Text>
-      <EvilIcons name='user' size={30} color='white' />
+    <View style={{ width: '100%', paddingHorizontal: 10 }}>
+      <CoinHeader
+        image={small}
+        symbol={symbol}
+        marketCapRank={market_cap_rank}
+      />
+      <Price
+        name={name}
+        currentPrice={current_price}
+        priceChange={price_change_percentage_24h}
+      />
     </View>
   );
 };

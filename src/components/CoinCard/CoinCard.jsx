@@ -1,12 +1,11 @@
-import { Text, View, Image } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import styles from "./styles";
+import { Text, View, Image } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import styles from './styles';
 
-const CoinCard = ({marketCoin}) => {
-
+const CoinCard = ({ marketCoin }) => {
   const {
     name,
-    current_price,  
+    current_price,
     market_cap_rank,
     price_change_percentage_24h,
     symbol,
@@ -14,35 +13,38 @@ const CoinCard = ({marketCoin}) => {
     image,
   } = marketCoin;
 
-  const percentageColor = price_change_percentage_24h < 0 ? '#ea3943' : '#16c784' 
+  const percentageColor =
+    price_change_percentage_24h < 0 ? '#ea3943' : '#16c784';
 
   const normalizeMCap = (marketCap) => {
     //Thrillion
     if (marketCap > 1000000000000) {
       return Math.floor(marketCap / 1000000000000) + 'T';
       //Billion
-    } if (marketCap > 1000000000) {
+    }
+    if (marketCap > 1000000000) {
       return Math.floor(marketCap / 1000000000) + 'B';
       //Million
-    } if (marketCap > 1000000) {
+    }
+    if (marketCap > 1000000) {
       return Math.floor(marketCap / 1000000) + 'M';
       //Thousand
-    } if (marketCap > 1000) {
+    }
+    if (marketCap > 1000) {
       return Math.floor(marketCap / 1000) + 'K';
     }
     return marketCap;
-  }
+  };
 
   return (
     <View style={styles.coinContainer}>
       <Image
-        source={{uri: image}}
+        source={{ uri: image }}
         style={{
           height: 30,
           width: 30,
           marginRight: 10,
           alignSelf: 'center',
-
         }}
       />
       <View>
@@ -58,7 +60,9 @@ const CoinCard = ({marketCoin}) => {
             color={percentageColor}
             style={{ alignSelf: 'center', marginRight: 5 }}
           />
-          <Text style={{ color: percentageColor }}>{price_change_percentage_24h.toFixed(2)}%</Text>
+          <Text style={{ color: percentageColor }}>
+            {price_change_percentage_24h.toFixed(2)}%
+          </Text>
         </View>
       </View>
       <View style={{ marginLeft: 'auto', alignItems: 'flex-end' }}>
