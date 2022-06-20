@@ -4,7 +4,7 @@ import styles from './styles';
 import { AntDesign } from '@expo/vector-icons';
 
 const Price = (props) => {
-  const { priceChange, currentPrice, name } = props;
+  const { priceChange, name } = props;
 
   const percentageColor = priceChange < 0 ? '#ea3943' : '#16c784';
   return (

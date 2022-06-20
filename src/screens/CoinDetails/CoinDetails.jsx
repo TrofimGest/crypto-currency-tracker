@@ -29,6 +29,8 @@ const CoinDetails = () => {
     }
   };
 
+  const chartColor = current_price.usd > prices[0][1] ? '#16c784' : '#ea3943';
+
   const screenWidth = Dimensions.get('window').width;
 
   return (
@@ -44,19 +46,15 @@ const CoinDetails = () => {
           symbol={symbol}
           marketCapRank={market_cap_rank}
         />
-        <Price
-          name={name}
-          currentPrice={current_price}
-          priceChange={price_change_percentage_24h}
-        >
+        <Price name={name} priceChange={price_change_percentage_24h}>
           <LineChart.PriceText
             format={currencyFormat}
             style={styles.currentPrice}
           />
         </Price>
         <LineChart width={screenWidth} height={screenWidth / 2}>
-          <LineChart.Path color='yellow' width={2} />
-          <LineChart.CursorCrosshair />
+          <LineChart.Path color={chartColor} width={2} />
+          <LineChart.CursorCrosshair color={chartColor} />
         </LineChart>
       </LineChart.Provider>
     </View>
