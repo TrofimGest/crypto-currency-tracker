@@ -1,5 +1,6 @@
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 
 const CoinCard = ({ marketCoin }) => {
@@ -12,6 +13,8 @@ const CoinCard = ({ marketCoin }) => {
     market_cap,
     image,
   } = marketCoin;
+
+  const navigation = useNavigation();
 
   const percentageColor =
     price_change_percentage_24h < 0 ? '#ea3943' : '#16c784';
@@ -37,7 +40,10 @@ const CoinCard = ({ marketCoin }) => {
   };
 
   return (
-    <View style={styles.coinContainer}>
+    <Pressable
+      style={styles.coinContainer}
+      onPress={() => navigation.navigate('Details')}
+    >
       <Image
         source={{ uri: image }}
         style={{
@@ -69,7 +75,7 @@ const CoinCard = ({ marketCoin }) => {
         <Text style={styles.title}>{current_price}</Text>
         <Text style={{ color: 'white' }}>MCap {normalizeMCap(market_cap)}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

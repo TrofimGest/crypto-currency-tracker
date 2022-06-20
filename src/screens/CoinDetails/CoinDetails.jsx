@@ -1,6 +1,7 @@
 import { View, Dimensions, Text, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { LineChart } from 'react-native-wagmi-charts';
+import { useNavigation } from '@react-navigation/native';
 
 import Coin from '../../../assets/data/crypto.json';
 import CoinHeader from '../../components/CoinHeader/CoinHeader';
@@ -19,6 +20,8 @@ const CoinDetails = () => {
       price_change_percentage_24h,
     },
   } = Coin;
+
+  const navigation = useNavigation();
 
   const [coinValue, setCoinValue] = useState('1');
   const [moneyValue, setMoneyValue] = useState(current_price.usd.toString());
@@ -60,6 +63,7 @@ const CoinDetails = () => {
           image={small}
           symbol={symbol}
           marketCapRank={market_cap_rank}
+          navigation={navigation}
         />
         <Price name={name} priceChange={price_change_percentage_24h}>
           <LineChart.PriceText
