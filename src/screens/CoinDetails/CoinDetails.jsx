@@ -1,10 +1,6 @@
 import { View, Dimensions } from 'react-native';
 import React from 'react';
-import {
-  ChartDot,
-  ChartPath,
-  ChartPathProvider,
-} from '@rainbow-me/animated-charts';
+import { LineChart } from 'react-native-wagmi-charts';
 
 import Coin from '../../../assets/data/crypto.json';
 import CoinHeader from '../../components/CoinHeader/CoinHeader';
@@ -23,8 +19,6 @@ const CoinDetails = () => {
     },
   } = Coin;
 
-  const screenWidth = Dimensions.get('window').width;
-
   return (
     <View style={{ width: '100%', paddingHorizontal: 10 }}>
       <CoinHeader
@@ -37,19 +31,17 @@ const CoinDetails = () => {
         currentPrice={current_price}
         priceChange={price_change_percentage_24h}
       />
-      <ChartPathProvider
-        data={{
-          points: prices.map(([x, y]) => ({ x, y })),
-          smoothingStrategy: 'bezier',
-        }}
+      <LineChart.Provider
+        data={prices.map((price) => ({
+          timestamp: price[0],
+          value: price[1],
+        }))}
       >
-        <ChartPath
-          height={screenWidth / 2}
-          stroke='yellow'
-          width={screenWidth}
-        />
-        <ChartDot style={{ backgroundColor: 'blue' }} />
-      </ChartPathProvider>
+        <LineChart>
+          <LineChart.Path />
+          <LineChart.CursorCrosshair />
+        </LineChart>
+      </LineChart.Provider>
     </View>
   );
 };
