@@ -11,7 +11,8 @@ const Price = (props) => {
     <View style={styles.priceContainer}>
       <View>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.currentPrice}>${currentPrice.usd}</Text>
+        {/* Children from CoinDetails */}
+        {props.children}
       </View>
       <View
         style={{
