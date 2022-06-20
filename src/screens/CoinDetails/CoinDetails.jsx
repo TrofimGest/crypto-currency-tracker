@@ -1,11 +1,11 @@
-import { View, Dimensions } from 'react-native';
-import React from 'react';
+import { View, Dimensions, Text, TextInput } from 'react-native';
+import React, { useState } from 'react';
 import { LineChart } from 'react-native-wagmi-charts';
 
 import Coin from '../../../assets/data/crypto.json';
 import CoinHeader from '../../components/CoinHeader/CoinHeader';
 import Price from '../../components/Price/Price';
-import styles from '../../components/Price/styles';
+import styles from './styles';
 
 const CoinDetails = () => {
   const {
@@ -20,6 +20,9 @@ const CoinDetails = () => {
     },
   } = Coin;
 
+  const [coinValue, setCoinValue] = useState('1');
+  const [moneyValue, setMoneyValue] = useState(current_price.usd.toString());
+
   const currencyFormat = ({ formatted }) => {
     'worklet';
     if (formatted === '') {
@@ -27,6 +30,18 @@ const CoinDetails = () => {
     } else {
       return `$${formatted}`;
     }
+  };
+
+  const changeCoinValue = (value) => {
+    setCoinValue(value);
+    const floatValue = parseFloat(value.replace(',', '.')) || 0;
+    setMoneyValue((floatValue * current_price.usd).toString());
+  };
+
+  const changeMoneyValue = (value) => {
+    setMoneyValue(value);
+    const floatValue = parseFloat(value.replace(',', '.')) || 0;
+    setCoinValue((floatValue / current_price.usd).toString());
   };
 
   const chartColor = current_price.usd > prices[0][1] ? '#16c784' : '#ea3943';
@@ -56,6 +71,29 @@ const CoinDetails = () => {
           <LineChart.Path color={chartColor} width={2} />
           <LineChart.CursorCrosshair color={chartColor} />
         </LineChart>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', flex: 1 }}>
+            <Text style={{ color: 'white', alignSelf: 'center' }}>
+              {symbol.toUpperCase()}
+            </Text>
+            <TextInput
+              style={styles.input}
+              value={coinValue}
+              keyboardType='numeric'
+              onChangeText={changeCoinValue}
+            />
+          </View>
+
+          <View style={{ flexDirection: 'row', flex: 1 }}>
+            <Text style={{ color: 'white', alignSelf: 'center' }}>USD</Text>
+            <TextInput
+              style={styles.input}
+              value={moneyValue}
+              keyboardType='numeric'
+              onChangeText={changeMoneyValue}
+            />
+          </View>
+        </View>
       </LineChart.Provider>
     </View>
   );
