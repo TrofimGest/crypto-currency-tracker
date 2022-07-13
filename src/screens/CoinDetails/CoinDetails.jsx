@@ -64,7 +64,7 @@ const CoinDetails = () => {
     if (formatted === '') {
       return `$${current_price.usd.toFixed(2)}`;
     } else {
-      return `$${formatted}`;
+      return `$${formatted.replace(/[\s,%]/g, '')}`;
     }
   };
 
