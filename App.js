@@ -4,8 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import Home from './src/screens/Home/Home';
+
 import CoinDetails from './src/screens/CoinDetails/CoinDetails';
+import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -21,9 +22,9 @@ export default function App() {
           <StatusBar style='light' />
           <Stack.Navigator
             screenOptions={{ headerShown: false }}
-            initialRouteName='Home'
+            initialRouteName='Root'
           >
-            <Stack.Screen name='Home' component={Home} />
+            <Stack.Screen name='Root' component={BottomTabNavigator} />
             <Stack.Screen name='Details' component={CoinDetails} />
           </Stack.Navigator>
         </View>
