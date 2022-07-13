@@ -1,30 +1,63 @@
-import { View, Dimensions, Text, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import {
+  View,
+  Dimensions,
+  Text,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { LineChart } from 'react-native-wagmi-charts';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-import Coin from '../../../assets/data/crypto.json';
 import CoinHeader from '../../components/CoinHeader/CoinHeader';
+import { getDetailedCoinData, getCoinMarketChart } from '../../services/api';
 import Price from '../../components/Price/Price';
 import styles from './styles';
 
 const CoinDetails = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const {
+    params: { coinId },
+  } = route;
+
+  const [coin, setCoin] = useState(null);
+  const [coinMarketData, setCoinMarketData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [coinValue, setCoinValue] = useState('1');
+  const [moneyValue, setMoneyValue] = useState('');
+
+  const fetchCoinData = async () => {
+    setLoading(true);
+    const fetchedCoinData = await getDetailedCoinData(coinId);
+    const fetchedCoinMarketData = await getCoinMarketChart(coinId);
+    setCoin(fetchedCoinData);
+    setCoinMarketData(fetchedCoinMarketData);
+    setMoneyValue(fetchedCoinData.market_data.current_price.usd.toString());
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCoinData();
+  }, []);
+
+  if (loading || !coin || !coinMarketData) {
+    return <ActivityIndicator size='large' />;
+  }
+
   const {
     image: { small },
     name,
     symbol,
-    prices,
     market_data: {
       market_cap_rank,
       current_price,
       price_change_percentage_24h,
     },
-  } = Coin;
+  } = coin;
 
-  const navigation = useNavigation();
-
-  const [coinValue, setCoinValue] = useState('1');
-  const [moneyValue, setMoneyValue] = useState(current_price.usd.toString());
+  const { prices } = coinMarketData;
 
   const currencyFormat = ({ formatted }) => {
     'worklet';

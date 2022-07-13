@@ -1,10 +1,11 @@
 import { Text, View, Image, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
 
 const CoinCard = ({ marketCoin }) => {
   const {
+    id,
     name,
     current_price,
     market_cap_rank,
@@ -42,7 +43,7 @@ const CoinCard = ({ marketCoin }) => {
   return (
     <Pressable
       style={styles.coinContainer}
-      onPress={() => navigation.navigate('Details')}
+      onPress={() => navigation.navigate('Details', { coinId: id })}
     >
       <Image
         source={{ uri: image }}
