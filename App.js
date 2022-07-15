@@ -7,6 +7,7 @@ import 'react-native-gesture-handler';
 
 import CoinDetails from './src/screens/CoinDetails/CoinDetails';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
+import WatchlistProvider from './src/contexts/WatchlistContext';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -18,16 +19,18 @@ export default function App() {
           colors: { background: '#161618' },
         }}
       >
-        <View style={styles.container}>
-          <StatusBar style='light' />
-          <Stack.Navigator
-            screenOptions={{ headerShown: false }}
-            initialRouteName='Root'
-          >
-            <Stack.Screen name='Root' component={BottomTabNavigator} />
-            <Stack.Screen name='Details' component={CoinDetails} />
-          </Stack.Navigator>
-        </View>
+        <WatchlistProvider>
+          <View style={styles.container}>
+            <StatusBar style='light' />
+            <Stack.Navigator
+              screenOptions={{ headerShown: false }}
+              initialRouteName='Root'
+            >
+              <Stack.Screen name='Root' component={BottomTabNavigator} />
+              <Stack.Screen name='Details' component={CoinDetails} />
+            </Stack.Navigator>
+          </View>
+        </WatchlistProvider>
       </NavigationContainer>
     </GestureHandlerRootView>
   );

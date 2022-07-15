@@ -47,6 +47,7 @@ const CoinDetails = () => {
   }
 
   const {
+    id,
     image: { small },
     name,
     symbol,
@@ -93,6 +94,7 @@ const CoinDetails = () => {
         }))}
       >
         <CoinHeader
+          coinId={id}
           image={small}
           symbol={symbol}
           marketCapRank={market_cap_rank}
